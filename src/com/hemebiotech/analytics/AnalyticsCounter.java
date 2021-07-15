@@ -1,43 +1,43 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class AnalyticsCounter {
-	private static int headacheCount = 0;	// initialize to 0
-	private static int rashCount = 0;		// initialize to 0
-	private static int pupilCount = 0;		// initialize to 0
 	
-	public static void main(String args[]) throws Exception {
-		// first get input
-		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
-		String line = reader.readLine();
-
-		while (line != null) {
-			if (line.equals("headache")) {
-				headacheCount++;
-			}
-			else if (line.equals("rash")) {
-				rashCount++;
-			}
-			else if (line.contains("pupils")) {
-				pupilCount++;
-			}
-			line = reader.readLine();	// get another symptom
+	public static void main(String args[]) throws IOException {
+		
+		// Take symptoms from symptoms.txt and put them in a list
+		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
+		
+		
+		// Transfer this list above in a map in order to count occurrence and sort by alphabetical order
+		Map<String, Integer> mapSymptom = new TreeMap<String, Integer>();
+		
+		for(String lineContent : reader.GetSymptoms()) {
+			lineContent = lineContent.toLowerCase(); // if line from reader contains symptom with capital letter, convert it to lower case
+			Integer freq = mapSymptom.get(lineContent);
+			mapSymptom.put(lineContent, (freq == null) ? 1 : freq + 1);
 		}
-		reader.close();
 		
-		// print result in console
-		System.out.println("total number of headaches found : " + headacheCount);
-		System.out.println("total number of rash found : " + rashCount);
-		System.out.println("total number of pupils found : " + pupilCount);
 		
-		// next generate output
+		// Print in console what will be written on output file result.out
+		for(Map.Entry<String, Integer> currentSymptom : mapSymptom.entrySet()) {
+			System.out.println(currentSymptom.getKey() + ", " + currentSymptom.getValue());
+		}
+		
+		
+		// Write on output file result.out
 		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("pupils: " + pupilCount + "\n");
+		
+		for(Map.Entry<String, Integer> currentPair : mapSymptom.entrySet()) {
+			writer.write(currentPair.getKey() + ", " + currentPair.getValue() + "\n");
+		}
+		
 		writer.close();
+		
 	}
+	
 }
