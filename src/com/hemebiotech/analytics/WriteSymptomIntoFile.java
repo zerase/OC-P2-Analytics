@@ -8,7 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * 
+ * Take a map of symptoms sorted from {@link SortReadSymptom} and write each 
+ * entry in an output file
+ * 
+ * @author Salomé B.
+ *
+ */
 public class WriteSymptomIntoFile implements ISymptomReader{
 	
 	private SortReadSymptom listToWrite;
@@ -16,12 +23,27 @@ public class WriteSymptomIntoFile implements ISymptomReader{
 	private FileWriter writer;
 	
 	
+	/**
+	 * 
+	 * Constructor of WriteSymptomIntoFile
+	 * 
+	 * @param sortedSymptoms 
+	 * 		a map of sorted symptoms with number of occurrences
+	 * @param outputFilepath 
+	 * 		a path to write into an output file
+	 * 
+	 */
 	public WriteSymptomIntoFile(SortReadSymptom sortedSymptoms, String outputFilepath) {
 		this.listToWrite = sortedSymptoms;
 		this.filepath = outputFilepath;
 	}
 	
 	
+	/**
+	 * 
+	 * Create a file and write each entry of a TreeMap (key-value) into it
+	 * 
+	 */
 	public void writeSymptom() {
 		
 		try {

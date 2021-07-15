@@ -1,5 +1,13 @@
 package com.hemebiotech.analytics;
 
+/**
+ * 
+ * Program that reads symptoms data from a source file, counts occurrence of 
+ * each one and writes them sorted by alphabetical order into another file 
+ * 
+ * @author Salomé B.
+ *
+ */
 public class AnalyticsCounter {
 	
 	public static void main(String args[]) {

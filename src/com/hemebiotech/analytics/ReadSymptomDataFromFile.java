@@ -7,20 +7,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simple brute force implementation
- *
+ * 
+ * Input source file containing a list of symptoms is read and stored in a list
+ * 
+ * @see ISymptomReader
+ * 
+ * @author Salomé B.
+ * 
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
 
 	private String filepath;
 	
+	
 	/**
 	 * 
-	 * @param filepath a full or partial path to file with symptom strings in it, one per line
+	 * Initialize a reader with a specific destination path
+	 * 
+	 * @param filepath 
+	 * 		a full or partial path to file with symptom strings in it, one per line
+	 * 
 	 */
 	public ReadSymptomDataFromFile (String filepath) {
 		this.filepath = filepath;
 	}
+	
 	
 	@Override
 	public List<String> getSymptoms() {
