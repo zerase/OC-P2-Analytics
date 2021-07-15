@@ -14,30 +14,30 @@ public class AnalyticsCounter {
 		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
 		String line = reader.readLine();
 
-		int i = 0;	// set i to 0
-		int headCount = 0;	// counts headaches
 		while (line != null) {
-			i++;	// increment i
-			System.out.println("symptom from file: " + line);
 			if (line.equals("headache")) {
-				headCount++;
-				System.out.println("number of headaches: " + headCount);
+				headacheCount++;
 			}
-			else if (line.equals("rush")) {
+			else if (line.equals("rash")) {
 				rashCount++;
 			}
 			else if (line.contains("pupils")) {
 				pupilCount++;
 			}
-
 			line = reader.readLine();	// get another symptom
 		}
+		reader.close();
+		
+		// print result in console
+		System.out.println("total number of headaches found : " + headacheCount);
+		System.out.println("total number of rash found : " + rashCount);
+		System.out.println("total number of pupils found : " + pupilCount);
 		
 		// next generate output
 		FileWriter writer = new FileWriter ("result.out");
 		writer.write("headache: " + headacheCount + "\n");
 		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
+		writer.write("pupils: " + pupilCount + "\n");
 		writer.close();
 	}
 }
