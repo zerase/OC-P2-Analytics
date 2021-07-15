@@ -1,38 +1,64 @@
 package com.hemebiotech.analytics;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-/**
- * Generate a file that listing all symptoms
- */
-public class WriteSymptomIntoFile {
+
+public class WriteSymptomIntoFile implements ISymptomReader{
 	
-	FileWriter writer;
-	String filepath;
+	private SortReadSymptom listToWrite;
+	private String filepath;
+	private FileWriter writer;
 	
 	
-	public WriteSymptomIntoFile(String outputfilepath) {
-		this.filepath = outputfilepath;
+	public WriteSymptomIntoFile(SortReadSymptom sortedSymptoms, String outputFilepath) {
+		this.listToWrite = sortedSymptoms;
+		this.filepath = outputFilepath;
 	}
 	
 	
-	public void writeOutputFileSymptom(Map<String, Integer> mapSymptoms) {
-			
+	public void writeSymptom() {
+		
 		try {
 			writer = new FileWriter(filepath);
-			for(Entry<String, Integer> currentPair : mapSymptoms.entrySet()) {
-				writer.write(currentPair.getKey() + ":" + currentPair.getValue() + "\n");
+			for(Map.Entry<String, Integer> currentPair : listToWrite.sortSymptoms().entrySet()) {
+				writer.write(currentPair.getKey() + " = " + currentPair.getValue() + "\n");
 			}
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-			
-		System.out.println("There is " + mapSymptoms.size() + " symptoms written.");
-			
+		
+	}
+	
+	
+	@Override
+	public List<String> getSymptoms() {
+		
+		ArrayList<String> symptomsWritten = new ArrayList<String>();
+		
+		if (filepath != null) {
+			try {
+				BufferedReader reader = new BufferedReader (new FileReader(filepath));
+				String line = reader.readLine();
+				
+				while (line != null) {
+					symptomsWritten.add(line);
+					line = reader.readLine();
+				}
+				reader.close();
+			} catch (IOException e) {
+				System.out.println("An error occurred.");
+				e.printStackTrace();
+			}
+		}
+		
+		return symptomsWritten;
 	}
 
 }
