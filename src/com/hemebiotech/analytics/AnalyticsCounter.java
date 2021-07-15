@@ -1,5 +1,7 @@
 package com.hemebiotech.analytics;
 
+import java.util.List;
+
 /**
  * 
  * Program that reads symptoms data from a source file, counts occurrence of 
@@ -13,11 +15,12 @@ public class AnalyticsCounter {
 	public static void main(String args[]) {
 		
 		// Read source file
-		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
+		ISymptomReader reader = new ReadSymptomDataFromFile("symptoms.txt");
+		List<String> symptomsList = reader.getSymptoms();
 		
 		
 		// Count and sort symptoms read from input file above
-		SortReadSymptom sorter = new SortReadSymptom(reader);
+		SortReadSymptom sorter = new SortReadSymptom(symptomsList);
 		
 		
 		// Write sorted symptoms from above into a new file

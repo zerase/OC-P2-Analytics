@@ -1,5 +1,6 @@
 package com.hemebiotech.analytics;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,7 +15,7 @@ import java.util.TreeMap;
  */
 public class SortReadSymptom {
 	
-	private ReadSymptomDataFromFile listToSort;
+	private List<String> listToSort;
 	private Map<String, Integer> listCountedAndSorted;
 	
 
@@ -26,7 +27,7 @@ public class SortReadSymptom {
 	 * 		an array of symptom strings
 	 * 
 	 */
-	public SortReadSymptom(ReadSymptomDataFromFile listReadFromFile) {
+	public SortReadSymptom(List<String> listReadFromFile) {
 		this.listToSort = listReadFromFile;
 	}
 	
@@ -44,7 +45,7 @@ public class SortReadSymptom {
 		
 		listCountedAndSorted = new TreeMap<String, Integer>();
 		
-		for(String symptomName : listToSort.getSymptoms()) {
+		for(String symptomName : listToSort) {
 			Integer occurrence = listCountedAndSorted.get(symptomName);
 			listCountedAndSorted.put(symptomName, (occurrence == null) ? 1 : occurrence + 1);
 		}
