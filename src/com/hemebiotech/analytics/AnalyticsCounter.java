@@ -17,7 +17,6 @@ public class AnalyticsCounter {
 		Map<String, Integer> mapSymptom = new TreeMap<String, Integer>();
 		
 		for(String lineContent : reader.GetSymptoms()) {
-			lineContent = lineContent.toLowerCase(); // if line from reader contains symptom with capital letter, convert it to lower case
 			Integer freq = mapSymptom.get(lineContent);
 			mapSymptom.put(lineContent, (freq == null) ? 1 : freq + 1);
 		}
